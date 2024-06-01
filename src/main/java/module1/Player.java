@@ -7,6 +7,7 @@ public class Player extends Entity{
     private int exp;
     private String role;
     private SkillTree skillTree;
+    private DialogueHandler text = new DialogueHandler();
 
     //Load data
     public Player(String name, int level, int pwr, int def, int maxHp, int role, SkillTree skillTree){
@@ -22,6 +23,7 @@ public class Player extends Entity{
         this.exp = 0;
         this.role = "warrior";
         this.skillTree = new SkillTree();
+        //text.dialogue("intro.txt");
     }
 }
 
