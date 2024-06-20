@@ -8,6 +8,7 @@ public class Entity {
     protected int maxHp;
     protected int currentHp;
 
+
     public Entity(String name, int level, int pwr, int def, int maxHp){
         this.name = name;
         this.level = level;
