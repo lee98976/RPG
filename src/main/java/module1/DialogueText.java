@@ -31,7 +31,7 @@ public class DialogueText extends JLabel{
 
     public void dialogue(String name, JFrame frame) throws InterruptedException{ //Testing
         for(String text : dialogue){
-            fancyText(text);
+            //fancyText(text);
             Thread.sleep(1000);
         }
     }
