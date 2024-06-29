@@ -3,18 +3,25 @@ package module1;
 public class Entity {
     protected String name;
     protected int level;
-    protected int pwr;
-    protected int def;
+    protected int health;
+    protected int defense;
+    protected int dexterity;
+    protected int attack;
     protected int maxHp;
-    protected int currentHp;
 
+    //Health increases health and reduces status apply rate
+    //Defense increases damage taken by set amount and reduces status apply rate
+    //Dexterity decreases damage taken by a set percentage and increases speed
+    //Attack increases attack and status apply rate
 
-    public Entity(String name, int level, int pwr, int def, int maxHp){
+    public Entity(String name, int level, int health, int defense, int dexterity, int attack){
         this.name = name;
         this.level = level;
-        this.pwr = pwr;
-        this.def = def;
-        this.maxHp = maxHp;
+        this.health = health;
+        this.defense = defense;
+        this.dexterity = dexterity;
+        this.attack = attack;
+        this.maxHp = health;
     }
 
     public Entity(String name){
@@ -23,57 +30,10 @@ public class Entity {
 
     protected void initialize(){
         level = 1;
-        pwr = 1;
-        def = 1;
-        maxHp = 100;
-        currentHp = maxHp;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
-    public int getPwr() {
-        return pwr;
-    }
-
-    public void setPwr(int pwr) {
-        this.pwr = pwr;
-    }
-
-    public int getDef() {
-        return def;
-    }
-
-    public void setDef(int def) {
-        this.def = def;
-    }
-
-    public int getMaxHp() {
-        return maxHp;
-    }
-
-    public void setMaxHp(int maxHp) {
-        this.maxHp = maxHp;
-    }
-
-    public int getCurrentHp() {
-        return currentHp;
-    }
-
-    public void setCurrentHp(int currentHp) {
-        this.currentHp = currentHp;
+        health = 10;
+        maxHp = 10;
+        defense = 0;
+        dexterity = 0;
+        attack = 0;
     }
 }
