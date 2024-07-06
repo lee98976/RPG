@@ -1,7 +1,5 @@
 package module1.Perks;
 
-import java.util.TreeSet;
-
 public class PerkTree {
     private Perk root;
     private int[] currentStatBoosts; // Health, Defense, Dexterity, Attack

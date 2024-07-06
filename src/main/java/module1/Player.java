@@ -23,17 +23,4 @@ public class Player {
         perkTree = new PerkTree(new Perk(0, "Health Boost"));
         // text.dialogue("intro.txt");
     }
-
-    public void checkLevel() {
-        /*
-         * while (exp >= 50 * Math.pow(1.1, this.level)) {
-         * exp -= 50 * Math.pow(1.1, this.level);
-         * level += 1;
-         * health = 1;
-         * // TODO add level up problems
-         * 
-         * }
-         */
-    }
-
 }
