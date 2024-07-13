@@ -14,7 +14,7 @@ public class Main {
             public void run() {
                 try {
                     Screen screen = new Screen();
-                    screen.testScene();
+                    screen.battleScene();
                     Player player = new Player("Jeff");
                 } catch (InterruptedException e) {
                 }
