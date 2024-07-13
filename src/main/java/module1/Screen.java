@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class Screen extends JFrame implements ActionListener{
     //References://
-    DialogueHandler text = new DialogueHandler();
+   // DialogueHandler text = new DialogueHandler();
 
     //Settings://
     int width = 1600;
@@ -25,9 +25,17 @@ public class Screen extends JFrame implements ActionListener{
     public Screen() {
         setSize(width, height);
         setTitle("RPG");
-        setVisible(true);
         getContentPane().setBackground(bgColor);
-        setLayout(null);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        CombatPanel Panel = new CombatPanel();
+        
+        add(Panel);
+        add(new JPanel(), BorderLayout.SOUTH);
+        add(new JButton("dam"), BorderLayout.NORTH);
+        add(new JButton("dam"), BorderLayout.EAST);
+        add(new JButton("dam"), BorderLayout.WEST);
+        setVisible(true);
     }
 
     public void initButton(int xPos, int yPos, int width, int height, JButton button1) {
@@ -40,9 +48,9 @@ public class Screen extends JFrame implements ActionListener{
     }
 
     public void testScene() throws InterruptedException{
-        initButton(100, 100, 100, 100, testButton);
-        DialogueText testText = new DialogueText(text.getDialogue("intro.txt"), dialogueFont);
-        testText.fancyText("HELLO BYE HELLO BYE", this);
+    //     initButton(100, 100, 100, 100, testButton);
+    //     DialogueText testText = new DialogueText(text.getDialogue("intro.txt"), dialogueFont);
+    //     testText.fancyText("HELLO BYE HELLO BYE", this);
     }
 
     @Override                                                                                                                                          

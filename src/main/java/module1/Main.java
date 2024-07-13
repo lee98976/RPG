@@ -12,8 +12,8 @@ public class Main {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                Screen screen = new Screen();
                 try {
+                    Screen screen = new Screen();
                     screen.testScene();
                     Player player = new Player("Jeff");
                 } catch (InterruptedException e) {
