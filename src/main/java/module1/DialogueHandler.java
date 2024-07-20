@@ -9,7 +9,7 @@ import java.util.List;
 import javax.swing.*;
 
 public class DialogueHandler{
-    File dialogueDir = new File("assets\\dialogue");
+    File dialogueDir = new File("RPG\\assets\\dialogue");
     File[] dialogueListing = dialogueDir.listFiles();
 
     HashMap<String, List<String>> dialogue;

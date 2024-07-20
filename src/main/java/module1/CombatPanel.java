@@ -4,29 +4,36 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class CombatPanel extends JPanel implements ActionListener{
-    Color bgColor = new Color(128, 56, 245);
+    Color bgColor = new Color(0, 0, 0);
     JButton attackButton = new JButton();
     JButton pokemonButton = new JButton();
     JButton inventoryButton = new JButton();
     JButton runButton = new JButton();
+    // BufferedImage bgImage = ImageIO.read(new File("module1\\Backgrounds\\Forest.png"));
 
     public CombatPanel() {
         setBackground(bgColor);
         setLayout(null);
         setVisible(true);
+        battleScene();
     }
 
     //Scenes://
         //BattleScene://
-    public void battleScene() throws InterruptedException{
+    public void battleScene(){
         attackButton = attackButton(100, 100, 100, 100, attackButton);
-        
         pokemonButton = attackButton(100, 100, 100, 100, pokemonButton);
+        inventoryButton = attackButton(100, 100, 100, 100, pokemonButton);
+        runButton = attackButton(100, 100, 100, 100, pokemonButton);
+
         add(attackButton);
         add(pokemonButton);
         add(inventoryButton);

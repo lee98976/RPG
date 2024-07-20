@@ -59,8 +59,8 @@ public class PokePal {
             level += 1;
             maxHp += rand.nextInt(healthInc / 2, healthInc * 3 / 2);
             attack += rand.nextInt(attackInc / 2, attackInc * 3 / 2);
-            defenseIV += rand.nextInt(defenseInc / 2, defenseInc * 3 / 2);
-            speedIV += rand.nextInt(speedInc / 2, speedInc * 3 / 2);
+            defense += rand.nextInt(defenseInc / 2, defenseInc * 3 / 2);
+            speed += rand.nextInt(speedInc / 2, speedInc * 3 / 2);
             health = maxHp;
         }
     }

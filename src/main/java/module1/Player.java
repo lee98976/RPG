@@ -20,7 +20,7 @@ public class Player {
 
     // New character
     public Player(String name) throws InterruptedException {
-        perkTree = new PerkTree(new Perk(0, "Health Boost"));
+        perkTree = new PerkTree(new Perk(0, "Health Boost", true));
         // text.dialogue("intro.txt");
     }
 }

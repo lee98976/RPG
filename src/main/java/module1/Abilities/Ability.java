@@ -11,6 +11,7 @@ public abstract class Ability {
     // protected StatusEffect effect;
     // protected int statusAccuracy;
 
+
     public int getAccuracy() {
         return accuracy;
     }
@@ -25,6 +26,14 @@ public abstract class Ability {
 
     public void setPotency(int potency) {
         this.potency = potency;
+    }
+
+    public float getCritChance() {
+        return critChance;
+    }
+
+    public void setCritChance(float critChance) {
+        this.critChance = critChance;
     }
 
     public String getElement() {

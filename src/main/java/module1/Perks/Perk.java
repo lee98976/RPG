@@ -13,10 +13,11 @@ public class Perk {
     public Perk parent;
     boolean owned;
 
-    public Perk(double value, String type) {
+    public Perk(double value, String type, boolean owned) {
         this.value = value;
         this.type = type;
         this.children = new ArrayList<Perk>();
+        this.owned = owned;
     }
 
 }

@@ -3,3 +3,4 @@
 (Character): Who are you? Type a number: Warrior: 1, Archer: 2, Mage: 3, Paladin: 4
 (Character): What is your name?
 (Character): That is an interesting name! Adventuer, good luck.
+

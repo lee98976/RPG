@@ -17,10 +17,10 @@ public class PerkTree {
 
     private void CreateTree() {
         // Layer 1: Input: root
-        Perk healthBoost1 = new Perk(10, "Health Boost");
-        Perk defenseBoost1 = new Perk(2, "Defence Boost");
-        Perk dexerityBoost1 = new Perk(1, "Dexterity Boost");
-        Perk attackBoost1 = new Perk(3, "Attack Boost");
+        Perk healthBoost1 = new Perk(10, "Health Boost", false);
+        Perk defenseBoost1 = new Perk(2, "Defence Boost", false);
+        Perk dexerityBoost1 = new Perk(1, "Dexterity Boost", false);
+        Perk attackBoost1 = new Perk(3, "Attack Boost", false);
         healthBoost1.parent = root;
         defenseBoost1.parent = root;
         dexerityBoost1.parent = root;
@@ -40,16 +40,18 @@ public class PerkTree {
 
     public void checkStatBoosts(Perk skill) {
         for (Perk node : skill.children) {
-            if (node.type.equals("Health Boost")) {
-                currentStatBoosts[0] += node.value;
-            } else if (node.type.equals("Defence Boost")) {
-                currentStatBoosts[1] += node.value;
-            } else if (node.type.equals("Dexterity Boost")) {
-                currentStatBoosts[2] += node.value;
-            } else if (node.type.equals("Attack Boost")) {
-                currentStatBoosts[3] += node.value;
+            if (node.owned) {
+                if (node.type.equals("Health Boost")) {
+                    currentStatBoosts[0] += node.value;
+                } else if (node.type.equals("Defence Boost")) {
+                    currentStatBoosts[1] += node.value;
+                } else if (node.type.equals("Dexterity Boost")) {
+                    currentStatBoosts[2] += node.value;
+                } else if (node.type.equals("Attack Boost")) {
+                    currentStatBoosts[3] += node.value;
+                }
             }
-
+        
             checkStatBoosts(node);
         }
     }
