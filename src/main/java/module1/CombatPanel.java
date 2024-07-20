@@ -30,7 +30,7 @@ public class CombatPanel extends JPanel implements ActionListener{
         add(attackButton);
         add(pokemonButton);
         add(inventoryButton);
-        add(runButton)
+        add(runButton);
     }
 
     public JButton attackButton(int xPos, int yPos, int width, int height, JButton button1) {
