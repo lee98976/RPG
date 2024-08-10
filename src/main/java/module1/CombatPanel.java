@@ -1,38 +1,38 @@
 package module1;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class CombatPanel extends JPanel implements ActionListener{
-    Color bgColor = new Color(0, 0, 0);
-    JButton attackButton = new JButton();
-    JButton pokemonButton = new JButton();
-    JButton inventoryButton = new JButton();
-    JButton runButton = new JButton();
+    Color bgColor = new Color(10, 150, 10);
+    JButton attackButton = new JButton("Attack");
+    JButton pokemonButton = new JButton("Change Pokemon");
+    JButton inventoryButton = new JButton("Inventory");
+    JButton runButton = new JButton("Be Cowardly");
+    Image bgImg;
+
     // BufferedImage bgImage = ImageIO.read(new File("module1\\Backgrounds\\Forest.png"));
 
     public CombatPanel() {
         setBackground(bgColor);
-        setLayout(null);
-        setVisible(true);
-        battleScene();
-    }
+        setLayout(new GridLayout(2, 2, 5, 5));
+        setBounds(1050, 575, 500, 250);
 
-    //Scenes://
-        //BattleScene://
-    public void battleScene(){
         attackButton = attackButton(100, 100, 100, 100, attackButton);
-        pokemonButton = attackButton(100, 100, 100, 100, pokemonButton);
-        inventoryButton = attackButton(100, 100, 100, 100, pokemonButton);
-        runButton = attackButton(100, 100, 100, 100, pokemonButton);
+        pokemonButton = attackButton(200, 100, 100, 100, pokemonButton);
+        inventoryButton = attackButton(100, 200, 100, 100, inventoryButton);
+        runButton = attackButton(200, 200, 100, 100, runButton);
 
         add(attackButton);
         add(pokemonButton);
@@ -53,7 +53,6 @@ public class CombatPanel extends JPanel implements ActionListener{
         button1.setVisible(true);
         return button1;
     }
-
     
     @Override                                                                                                                                          
     public void actionPerformed(ActionEvent e) {

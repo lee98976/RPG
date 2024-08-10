@@ -81,6 +81,7 @@ public class CombatSession {
         int damage = abilityUsed.getPotency() + user.getAttack() - opponent.getDefense();
         int critcalChance = rand.nextInt(0, 100);
         if (critcalChance < abilityUsed.getCritChance()){damage = (int)(damage * 1.5);}
-        opponent.setHealth(opponent.getHealth() - damage);
+        boolean isDead = opponent.hurtPal(damage);
+        if (isDead) {}
     }
 }

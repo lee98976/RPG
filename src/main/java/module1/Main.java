@@ -15,7 +15,10 @@ public class Main {
                 try {
                     Screen screen = new Screen();
                     screen.battleScene();
-                    Player player = new Player("Jeff");
+
+                    // Player player = new Player("Jeff");
+                    
+                    
                 } catch (InterruptedException e) {
                 }
                 // DialogueText label = new DialogueText(text.getDialogue("intro.txt"));
