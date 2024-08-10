@@ -65,6 +65,19 @@ public class PokePal {
         }
     }
 
+    public void healPal(int amount){
+        health += amount;
+        if (health > maxHp){
+            health = maxHp;
+        }
+    }
+
+    public boolean hurtPal(int amount){
+        health -= amount;
+        if (health < 0) {return true;}
+        else {return false}
+    }
+
     public String getPalName() {
         return palName;
     }
@@ -83,10 +96,6 @@ public class PokePal {
 
     public int getHealth() {
         return health;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
     }
 
     public int getAttack() {

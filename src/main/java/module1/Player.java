@@ -8,7 +8,8 @@ import module1.Perks.PerkTree;
 
 public class Player {
 
-    private ArrayList<PokePal> pokePals;
+    public ArrayList<PokePal> pokePals;
+    public ArrayList<String> inventory;
     private PerkTree perkTree;
     private int trainerLevel;
     // private DialogueHandler text = new DialogueHandler();
