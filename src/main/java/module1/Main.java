@@ -14,9 +14,12 @@ public class Main {
             public void run() {
                 try {
                     Screen screen = new Screen();
-                    screen.battleScene();
 
-                    // Player player = new Player("Jeff");
+                    Player player = new Player("Jeff");
+                    Player fatMeanie = new Player("Obese");
+                    screen.battleScene(player, fatMeanie, "GrassBattlefield");
+
+                    
                     
                     
                 } catch (InterruptedException e) {

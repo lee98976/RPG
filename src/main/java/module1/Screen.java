@@ -36,15 +36,11 @@ public class Screen extends JFrame implements ActionListener{
         // getContentPane().setBackground(bgColor);
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        battleScene();
     }
     
-    public void battleScene() throws InterruptedException {
-        setBackground();
-        CombatPanel combatPanel = new CombatPanel();
-        // combatPanel.setVisible(true);
-        add(combatPanel);
+    public void battleScene(Player player1, Player aiPlayer, String battlefieldName) throws InterruptedException {
+        setBackground(battlefieldName);
+        CombatSession combatSession = new CombatSession(player1, aiPlayer, this);
     }
 
     public Image getFile(String filePath) {
@@ -58,10 +54,12 @@ public class Screen extends JFrame implements ActionListener{
         }
     }
 
-    public void setBackground() {
-        bgImg = getFile("RPG/assets/bg.png");
-        bgImg = bgImg.getScaledInstance(1600, 900, Image.SCALE_DEFAULT);
-        setContentPane(new Panel(bgImg));
+    public void setBackground(String bgName) {
+        if (bgName == "GrassBattlefield") {
+            bgImg = getFile("RPG/assets/bg.png");
+            bgImg = bgImg.getScaledInstance(1600, 900, Image.SCALE_DEFAULT);
+            setContentPane(new Panel(bgImg));
+        }
     }
 
 	@Override

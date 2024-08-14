@@ -7,11 +7,12 @@ import module1.Perks.Perk;
 import module1.Perks.PerkTree;
 
 public class Player {
-
+    public String name;
     public ArrayList<PokePal> pokePals;
     public ArrayList<String> inventory;
     private PerkTree perkTree;
     private int trainerLevel;
+
     // private DialogueHandler text = new DialogueHandler();
     // Load data
 
@@ -22,6 +23,7 @@ public class Player {
     // New character
     public Player(String name) throws InterruptedException {
         perkTree = new PerkTree(new Perk(0, "Health Boost", true));
+        this.name = name;
         // text.dialogue("intro.txt");
     }
 }

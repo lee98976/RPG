@@ -73,9 +73,10 @@ public class PokePal {
     }
 
     public boolean hurtPal(int amount){
+        amount = Math.min(amount-defense, 1);
         health -= amount;
         if (health < 0) {return true;}
-        else {return false}
+        else {return false;}
     }
 
     public String getPalName() {

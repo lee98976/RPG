@@ -6,16 +6,21 @@ import java.util.Scanner;
 import module1.Abilities.Ability;
 
 public class CombatSession {
-    Scanner scanner;
-    Player player1;
-    ArrayList<PokePal> enemyPokes;
-    PokePal currentPlayer;
-    PokePal currentEnemy;
     Random rand;
+    CombatPanel combatPanel;
 
-    public CombatSession(Player player1, ArrayList<PokePal> enemyPokes) {
+    Player player1;
+    PokePal currentPlayer;
+    int playerChoice;
+
+    Player aiPlayer;
+    PokePal currentEnemy;
+
+    public CombatSession(Player player1, Player aiPlayer, Screen screen) {
         this.player1 = player1;
-        this.enemyPokes = enemyPokes;
+        this.aiPlayer = aiPlayer;
+        combatPanel = new CombatPanel(this);
+        screen.add(combatPanel);
     }
 
     public void SelectActivePokemon(PokePal selectedPokemon) {
@@ -26,49 +31,63 @@ public class CombatSession {
         }
     }
 
-    public void UseItem(int choice){
-        String itemName = player1.inventory.get(choice);
+    public void UseItem(Player player, int choice){
+        String itemName = player.inventory.get(choice);
         if (itemName == "Potion") {currentPlayer.healPal(10);}
         else if (itemName == "Super Potion") {currentPlayer.healPal(20);}
         else if (itemName == "Full Heal Potion") {currentPlayer.healPal(currentPlayer.getHealth());}
     }
 
-    public void PlayerTurn(){
-        System.out.println("Type 1 to fight, 2 to defend, 3, to use an item, and 4 to run away.");
-        int choice = scanner.nextInt();
+    public void turn(Player player, boolean isAI){
+        String playerName = player.name;
+        PokePal pokePal = currentPlayer;
+        String pokePalName = pokePal.getPalName();
+
+        // Use GUI to get player input TODO
+        int choice;
+        if (isAI) { choice = rand.nextInt(1, currentEnemy.getAbilityList().size()); }
+        else {
+            while (playerChoice == -1) { ; }
+            choice = playerChoice;
+        }
 
         if (choice == 1){ 
-            System.out.println("You attacked!"); 
+            System.out.println(pokePalName + " attacked!"); 
         } else if (choice == 2) {
-            System.out.println("You are attempting to block...");
+            System.out.println(playerName + " is switching pokemon...");
         } else if (choice == 3) {
-            String itemText = "Type the corresponding number for the item: ";
-            int index = 1;
-
-            if (player1.inventory.size() != 0) {
-                for (String item : player1.inventory) {
+            if (player.inventory.size() != 0) {
+                String itemText = "Type the corresponding number for the item: ";
+                int index = 1;
+                for (String item : player.inventory) {
                     itemText += item + " - " + index + ", ";
                     index += 1;
                 }
-                itemText = itemText.substring(0, player1.inventory.size()-2);
+                itemText = itemText.substring(0, player.inventory.size()-2);
                 itemText += ".";
                 System.out.println(itemText);
 
-                choice = scanner.nextInt();
-                UseItem(choice);
+                // TODO
+                // choice = scanner.nextInt();
+                // UseItem(player, choice);
             } else {
-                System.out.println("You have no items!");
-                PlayerTurn();
+                System.out.println(playerName + " scoured his bag but could find nothing!");
             }
-            
+        } else if (choice == 4) {
+            System.out.println(playerName + " ran away!"); 
         }
+
+        playerChoice = -1;
+        System.out.println("Turn over.");
     }
 
     public void SingleTurn(Ability ability){
         // Your turn
-        PlayerTurn();
+        turn(player1, false);
 
         // Enemy turn
+        turn(aiPlayer, true);
+        
         int enemyChoiceInt = rand.nextInt(0, currentEnemy.getAbilityList().size());
         Ability enemyAbility = currentEnemy.getAbilityList().get(enemyChoiceInt);
 
