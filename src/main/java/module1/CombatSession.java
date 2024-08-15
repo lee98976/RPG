@@ -19,15 +19,53 @@ public class CombatSession {
     public CombatSession(Player player1, Player aiPlayer, Screen screen) {
         this.player1 = player1;
         this.aiPlayer = aiPlayer;
+
+        playerChoice = -1;
         combatPanel = new CombatPanel(this);
+        rand = new Random();
+
         screen.add(combatPanel);
+        
+        // Select pokemon
+        SelectActivePokemon(0);
+        System.out.println(aiPlayer.pokePals.get(0).palName);
+        currentEnemy = aiPlayer.pokePals.get(0);
+
+        // Setup UI
+        
     }
 
-    public void SelectActivePokemon(PokePal selectedPokemon) {
-        if (selectedPokemon.getHealth() >= 0) {
+    public void betterSleep(int millis) {
+        try {
+            Thread.sleep(500);
+        } catch(InterruptedException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void SingleGameLoop(int choice) {
+
+        combatPanel.isActive = false;
+        // Your turn: 
+        turn(player1, false, choice);
+        betterSleep(3000);
+        // Enemy turn
+        turn(aiPlayer, true, 0);
+
+        combatPanel.isActive = true;
+
+        // Check if player has won or lost every loop
+        
+        // Ability enemyAbility = currentEnemy.getAbilityList().get(enemyChoiceInt);
+    }
+
+    public void SelectActivePokemon(int index) {
+        PokePal selectedPokemon = player1.pokePals.get(index);
+        if (selectedPokemon.health >= 0) {
             currentPlayer = selectedPokemon;
         } else {
-            System.out.println("Pokemon has fainted!");
+            System.out.println(selectedPokemon.palName + ", pokepal number " + Integer.toString(index + 1) + ",  has already fainted!");
+            SelectActivePokemon(index + 1);
         }
     }
 
@@ -35,19 +73,19 @@ public class CombatSession {
         String itemName = player.inventory.get(choice);
         if (itemName == "Potion") {currentPlayer.healPal(10);}
         else if (itemName == "Super Potion") {currentPlayer.healPal(20);}
-        else if (itemName == "Full Heal Potion") {currentPlayer.healPal(currentPlayer.getHealth());}
+        else if (itemName == "Full Heal Potion") {currentPlayer.healPal(currentPlayer.maxHp);}
     }
 
-    public void turn(Player player, boolean isAI){
+    public void turn(Player player, boolean isAI, int choice) {
         String playerName = player.name;
-        PokePal pokePal = currentPlayer;
-        String pokePalName = pokePal.getPalName();
+        PokePal pokePal;
+        if (isAI) {pokePal = currentEnemy; }
+        else {pokePal = currentPlayer; }
+        String pokePalName = pokePal.palName;
 
         // Use GUI to get player input TODO
-        int choice;
-        if (isAI) { choice = rand.nextInt(1, currentEnemy.getAbilityList().size()); }
+        if (isAI) { choice = rand.nextInt(1, 4); }
         else {
-            while (playerChoice == -1) { ; }
             choice = playerChoice;
         }
 
@@ -67,6 +105,9 @@ public class CombatSession {
                 itemText += ".";
                 System.out.println(itemText);
 
+                if (isAI) { choice = rand.nextInt(0, player.inventory.size() - 1); }
+                // else { choice = }
+
                 // TODO
                 // choice = scanner.nextInt();
                 // UseItem(player, choice);
@@ -78,28 +119,15 @@ public class CombatSession {
         }
 
         playerChoice = -1;
+        betterSleep(300);
         System.out.println("Turn over.");
-    }
-
-    public void SingleTurn(Ability ability){
-        // Your turn
-        turn(player1, false);
-
-        // Enemy turn
-        turn(aiPlayer, true);
-        
-        int enemyChoiceInt = rand.nextInt(0, currentEnemy.getAbilityList().size());
-        Ability enemyAbility = currentEnemy.getAbilityList().get(enemyChoiceInt);
-
-        // Find which move is faster
-
     }
 
     // Create function for pokemon stats, function has access to important attributes (Damage, health, etc)
     public void calculateDamage(Ability abilityUsed, PokePal user, PokePal opponent){
-        int damage = abilityUsed.getPotency() + user.getAttack() - opponent.getDefense();
+        int damage = abilityUsed.potency + user.attack - opponent.defense;
         int critcalChance = rand.nextInt(0, 100);
-        if (critcalChance < abilityUsed.getCritChance()){damage = (int)(damage * 1.5);}
+        if (critcalChance < abilityUsed.critChance){damage = (int)(damage * 1.5);}
         boolean isDead = opponent.hurtPal(damage);
         if (isDead) {}
     }

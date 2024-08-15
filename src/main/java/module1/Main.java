@@ -15,9 +15,11 @@ public class Main {
                 try {
                     Screen screen = new Screen();
 
-                    Player player = new Player("Jeff");
-                    Player fatMeanie = new Player("Obese");
-                    screen.battleScene(player, fatMeanie, "GrassBattlefield");
+                    Player player = new Player("Ash");
+                    player.pokePals.add(new PokePal("Pikachu", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                    Player enemy = new Player("Team Rocket");
+                    enemy.pokePals.add(new PokePal("Rocket", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                    screen.battleScene(player, enemy, "GrassBattlefield");
 
                     
                     

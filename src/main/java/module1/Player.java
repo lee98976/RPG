@@ -14,16 +14,21 @@ public class Player {
     private int trainerLevel;
 
     // private DialogueHandler text = new DialogueHandler();
+
     // Load data
 
-    public Player(PerkTree perkTree) {
-        this.perkTree = perkTree;
-    }
+    // public Player(PerkTree perkTree) {
+    //     this.perkTree = perkTree;
+    // }
 
     // New character
     public Player(String name) throws InterruptedException {
-        perkTree = new PerkTree(new Perk(0, "Health Boost", true));
         this.name = name;
+        pokePals = new ArrayList<PokePal>();
+        inventory = new ArrayList<String>();
+        perkTree = new PerkTree(new Perk(0, "Health Boost", true));
+        trainerLevel = 1;
+
         // text.dialogue("intro.txt");
     }
 }

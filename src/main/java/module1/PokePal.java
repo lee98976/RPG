@@ -6,32 +6,33 @@ import module1.Abilities.Ability;
 
 public class PokePal {
     //Statistics
-    private String palName;
-    private int level;
-    private int exp;
-    private int health;
-    private int attack;
-    private int defense;
-    private int speed;
-    private int maxHp;
-    private int currentHp;
+    public String palName;
+    public int level;
+    public int exp;
+    public int health;
+    public int attack;
+    public int defense;
+    public int speed;
+    public int maxHp;
+    public int currentHp;
 
     //Individual Values
-    private int healthIV;
-    private int attackIV;
-    private int defenseIV;
-    private int speedIV;
+    public int healthIV;
+    public int attackIV;
+    public int defenseIV;
+    public int speedIV;
 
     //Stat Inclinations
-    private int healthInc;
-    private int attackInc;
-    private int defenseInc;
-    private int speedInc;
+    public int healthInc;
+    public int attackInc;
+    public int defenseInc;
+    public int speedInc;
 
-    private ArrayList<Ability> abilityList;
-    private Random rand;
+    public ArrayList<Ability> abilityList;
+    public Random rand;
 
     public PokePal(String palName, int level, int health, int attack, int defense, int speed, int hInc, int aInc, int dInc, int sInc, int maxHp) {
+        rand = new Random();
         this.palName = palName;
 
         this.healthIV = rand.nextInt(1, 32);
@@ -78,73 +79,4 @@ public class PokePal {
         if (health < 0) {return true;}
         else {return false;}
     }
-
-    public String getPalName() {
-        return palName;
-    }
-
-    public void setPalName(String palName) {
-        this.palName = palName;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public int getAttack() {
-        return attack;
-    }
-
-    public void setAttack(int attack) {
-        this.attack = attack;
-    }
-
-    public int getDefense() {
-        return defense;
-    }
-
-    public void setDefense(int defense) {
-        this.defense = defense;
-    }
-
-    public int getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    public int getMaxHp() {
-        return maxHp;
-    }
-
-    public void setMaxHp(int maxHp) {
-        this.maxHp = maxHp;
-    }
-
-    public int getCurrentHp() {
-        return currentHp;
-    }
-
-    public void setCurrentHp(int currentHp) {
-        this.currentHp = currentHp;
-    }
-
-    public ArrayList<Ability> getAbilityList() {
-        return abilityList;
-    }
-
-    public void setAbilityList(ArrayList<Ability> abilityList) {
-        this.abilityList = abilityList;
-    }
-
 }

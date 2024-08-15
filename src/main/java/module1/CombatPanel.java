@@ -14,8 +14,12 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import module1.Abilities.Ability;
+
 public class CombatPanel extends JPanel implements ActionListener{
     CombatSession combatSession;
+    boolean isActive = true;
+    String currentMenu = "optionMenu";
 
     Color bgColor = new Color(10, 150, 10);
     JButton attackButton = new JButton("Attack");
@@ -30,9 +34,15 @@ public class CombatPanel extends JPanel implements ActionListener{
         setVisible(true);
 
         setBackground(bgColor);
-        setLayout(new GridLayout(2, 2, 5, 5));
         setBounds(1050, 575, 500, 250);
 
+        optionMenu();
+    }
+
+    public void optionMenu() {
+        removeAll();
+
+        setLayout(new GridLayout(2, 2, 5, 5));
         attackButton = createButton(100, 100, 100, 100, attackButton);
         pokemonButton = createButton(200, 100, 100, 100, pokemonButton);
         inventoryButton = createButton(100, 200, 100, 100, inventoryButton);
@@ -42,6 +52,22 @@ public class CombatPanel extends JPanel implements ActionListener{
         add(pokemonButton);
         add(inventoryButton);
         add(runButton);
+
+        currentMenu = "optionMenu";
+    }
+
+    public void attackMenu() {
+        removeAll();
+
+        setLayout(new GridLayout(4, 1, 5, 5));
+
+        int index = 0;
+        for ( Ability ability : combatSession.currentPlayer.abilityList ) {
+            index += 1;
+            add(createButton(1, 1, 1, 1, new JButton(ability.name + " " + index)));
+        }
+
+        currentMenu = "attackMenu";
     }
 
     public JButton createButton(int xPos, int yPos, int width, int height, JButton button1) {
@@ -52,13 +78,20 @@ public class CombatPanel extends JPanel implements ActionListener{
     }
     
     @Override                                                                                                                                          
-    public void actionPerformed(ActionEvent e) {
-        int choice;
-        if(e.getSource() == attackButton){ choice = 1; }
-        else if(e.getSource() == pokemonButton){ choice = 2; }
-        else if (e.getSource() == inventoryButton){ choice = 3; }
-        else if (e.getSource() == runButton){ choice = 4; }
-        else { choice = -1; }
-        combatSession.playerChoice = choice;
+    public void actionPerformed(ActionEvent e){
+        if (isActive) {
+            JButton button = (JButton) e.getSource();
+            String text = button.getText();
+            
+            int choice;
+            if(text == "Attack"){ choice = 1; }
+            else if(text == "Change Pokemon"){ choice = 2; }
+            else if (text == "Inventory"){ choice = 3; }
+            else if (text == "Run Away"){ choice = 4; }
+            else { choice = -1; }
+            combatSession.playerChoice = choice;
+
+            combatSession.SingleGameLoop(choice);
+        }
     }
 }
