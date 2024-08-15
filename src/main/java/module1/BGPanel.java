@@ -15,8 +15,6 @@ public class BGPanel extends JPanel{
 
 public BGPanel(int bgSelect) throws IOException{
     bg = ImageIO.read(new File("Forest.png"));
-
-
     
 }
 }

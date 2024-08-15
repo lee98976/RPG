@@ -82,16 +82,28 @@ public class CombatPanel extends JPanel implements ActionListener{
         if (isActive) {
             JButton button = (JButton) e.getSource();
             String text = button.getText();
-            
-            int choice;
-            if(text == "Attack"){ choice = 1; }
-            else if(text == "Change Pokemon"){ choice = 2; }
-            else if (text == "Inventory"){ choice = 3; }
-            else if (text == "Run Away"){ choice = 4; }
-            else { choice = -1; }
-            combatSession.playerChoice = choice;
+            if (currentMenu == "optionMenu") {
+                int choice;
+                if(text == "Attack"){ 
+                    choice = 1; 
+                    attackMenu();
+                }
+                else if(text == "Change Pokemon"){ choice = 2; }
+                else if (text == "Inventory"){ choice = 3; }
+                else if (text == "Run Away"){ choice = 4; }
+                else { choice = -1; }
+                combatSession.playerChoice = choice;
+            }
+            else if (currentMenu == "attackMenu") {
+                int endingIndex = Integer.parseInt(text.substring(text.length() - 1, text.length()));
+                combatSession.SingleGameLoop(1, endingIndex);
+                return;
+            }
+            // } else if (currentMenu == ""){
 
-            combatSession.SingleGameLoop(choice);
+            // }
+
+            // combatSession.SingleGameLoop(choice, 0);
         }
     }
 }

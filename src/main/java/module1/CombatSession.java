@@ -43,7 +43,7 @@ public class CombatSession {
         }
     }
 
-    public void SingleGameLoop(int choice) {
+    public void SingleGameLoop(int choice, int choice2) {
 
         combatPanel.isActive = false;
         // Your turn: 
@@ -83,13 +83,12 @@ public class CombatSession {
         else {pokePal = currentPlayer; }
         String pokePalName = pokePal.palName;
 
-        // Use GUI to get player input TODO
         if (isAI) { choice = rand.nextInt(1, 4); }
         else {
             choice = playerChoice;
         }
 
-        if (choice == 1){ 
+        if (choice == 1){ //TODO make attack work
             System.out.println(pokePalName + " attacked!"); 
         } else if (choice == 2) {
             System.out.println(playerName + " is switching pokemon...");
