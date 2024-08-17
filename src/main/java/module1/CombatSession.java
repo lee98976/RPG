@@ -8,28 +8,41 @@ import module1.Abilities.Ability;
 public class CombatSession {
     Random rand;
     CombatPanel combatPanel;
+    Screen screen;
 
     Player player1;
     PokePal currentPlayer;
+    HealthBar playerHealthBar;
 
     Player aiPlayer;
     PokePal currentEnemy;
+    HealthBar enemyHealthBar;
 
     public CombatSession(Player player1, Player aiPlayer, Screen screen) {
         this.player1 = player1;
         this.aiPlayer = aiPlayer;
+        this.screen = screen;
 
-        combatPanel = new CombatPanel(this);
+        // Libraries
         rand = new Random();
 
-        screen.add(combatPanel);
-        
         // Select pokemon
         SelectActivePokemon(0);
         currentEnemy = aiPlayer.pokePals.get(0);
 
-        // Setup UI
-        
+        // Initialize UI
+        combatPanel = new CombatPanel(this);
+        playerHealthBar = new HealthBar(300, 700);
+        enemyHealthBar = new HealthBar(1200, 500);
+        updateHealthBar(playerHealthBar, currentPlayer);
+        updateHealthBar(enemyHealthBar, currentEnemy);
+        screen.add(combatPanel); 
+        // screen.add(playerHealthBar);
+        screen.add(enemyHealthBar);  
+    }
+
+    public void updateHealthBar(HealthBar healthBar, PokePal pokemon) {
+        healthBar.updateHealthBar(pokemon.health / pokemon.maxHp);
     }
 
     public void betterSleep(int millis) {
@@ -79,26 +92,34 @@ public class CombatSession {
 
         String playerName = player.name;
         PokePal pokePal;
-        if (isAI) {pokePal = currentEnemy; }
-        else {pokePal = currentPlayer; }
+        PokePal enemyPokePal;
+
+        if (isAI) {
+            pokePal = currentEnemy; 
+            enemyPokePal = currentPlayer;
+
+        } else {
+            pokePal = currentPlayer; 
+            enemyPokePal = currentEnemy;
+        }
+
         String pokePalName = pokePal.palName;
 
         if (isAI) { choice = rand.nextInt(1, 4); }
 
-        if (choice == 1){ // TODO make attack work
+        if (choice == 1){
+            System.out.println("abilitysize: " + currentEnemy.abilityList.size());
+            if (isAI) { choice2 = rand.nextInt(0, currentEnemy.abilityList.size()); }
             System.out.println(pokePalName + " attacked!"); 
+            System.out.println(choice2);
+            attack(pokePal.abilityList.get(choice2), pokePal, enemyPokePal);
         } else if (choice == 2) {
+            if (isAI) { choice2 = rand.nextInt(0, aiPlayer.pokePals.size()); }
             System.out.println(playerName + " is switching pokemon...");
+            SelectActivePokemon(choice2);
         } else if (choice == 3) {
             if (player.inventory.size() != 0) {
-                
-
-                if (isAI) { choice2 = rand.nextInt(0, player.inventory.size() - 1); }
-                // else { choice = }
-
-                // TODO
-                // choice = scanner.nextInt();
-                // UseItem(player, choice);
+                if (isAI) { choice2 = rand.nextInt(0, player.inventory.size()); }
             } else {
                 System.out.println(playerName + " scoured his bag but could find nothing!");
             }
@@ -111,11 +132,19 @@ public class CombatSession {
     }
 
     // Create function for pokemon stats, function has access to important attributes (Damage, health, etc)
-    public void calculateDamage(Ability abilityUsed, PokePal user, PokePal opponent){
-        int damage = abilityUsed.potency + user.attack - opponent.defense;
+    public void attack(Ability abilityUsed, PokePal user, PokePal opponent){
+        int damage = Math.round(abilityUsed.potency * user.attack - opponent.defense);
+        if (damage < 0) {damage = 1;}
+
+        // RNG determines critcal
         int critcalChance = rand.nextInt(0, 100);
         if (critcalChance < abilityUsed.critChance){damage = (int)(damage * 1.5);}
+
+        // System.out.println("damage" + damage);
         boolean isDead = opponent.hurtPal(damage);
-        if (isDead) {}
+
+        if (isDead) {
+            // TODO
+        }
     }
 }

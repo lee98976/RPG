@@ -36,10 +36,10 @@ public class PokePal {
 
         this.abilityList = new ArrayList<Ability>();
 
-        this.healthIV = rand.nextInt(1, 32);
-        this.attackIV = rand.nextInt(1, 32);
-        this.defenseIV = rand.nextInt(1, 32);
-        this.speedIV = rand.nextInt(1, 32);
+        this.healthIV = rand.nextInt(1, 8);
+        this.attackIV = rand.nextInt(1, 8);
+        this.defenseIV = rand.nextInt(1, 8);
+        this.speedIV = rand.nextInt(1, 8);
 
         this.level = level;
         this.exp = 0;
@@ -75,8 +75,9 @@ public class PokePal {
     }
 
     public boolean hurtPal(int amount){
-        amount = Math.min(amount-defense, 1);
         health -= amount;
+        // System.out.println("maxHP" + maxHp);
+        // System.out.println("health" + health);
         if (health < 0) {return true;}
         else {return false;}
     }

@@ -27,7 +27,6 @@ public class CombatPanel extends JPanel implements ActionListener{
     public CombatPanel(CombatSession combatSession) {
         this.combatSession = combatSession;
 
-        setVisible(true);
         revalidate();
         setBackground(bgColor);
         setBounds(1050, 575, 500, 250);
@@ -44,8 +43,6 @@ public class CombatPanel extends JPanel implements ActionListener{
         add(createButton(200, 100, 100, 100, new JButton("Pokemon")));
         add(createButton(100, 200, 100, 100, new JButton("Inventory")));
         add(createButton(200, 200, 100, 100, new JButton("Run Away")));
-
-        currentMenu = "optionMenu";
     }
 
     public void attackMenu() {
@@ -69,7 +66,8 @@ public class CombatPanel extends JPanel implements ActionListener{
         setLayout(new GridLayout(4, 1, 5, 5));
 
         int index = 0;
-        for ( PokePal pokemon : combatSession.player1.pokePals ) {
+        for ( PokePal pokemon : combatSession.player1.pokePals) {
+            System.out.println(pokemon.palName);
             add(createButton(1, 1, 1, 1, new JButton(pokemon.palName + " " + index)));
             index += 1;
         }
@@ -106,20 +104,20 @@ public class CombatPanel extends JPanel implements ActionListener{
             String text = button.getText();
             if (currentMenu == "optionMenu") {
                 if(text == "Attack"){ 
-                    add(new JButton(">:("));
-                    // attackMenu();
+                    currentMenu = "attackMenu";
+                    attackMenu();
                 }
-                else if(text == "Change Pokemon"){ 
+                else if(text == "Pokemon"){ 
+                    currentMenu = "pokemonMenu";
                     pokemonMenu();
                 }
                 else if (text == "Inventory"){ 
+                    currentMenu = "inventoryMenu";
                     inventoryMenu();
                 }
                 else if (text == "Run Away"){ 
                     combatSession.SingleGameLoop(4, -1);
                 }
-
-                
             }
             else {
                 int endingIndex = Integer.parseInt(text.substring(text.length() - 1, text.length()));
@@ -131,7 +129,10 @@ public class CombatPanel extends JPanel implements ActionListener{
                 } else if (currentMenu == "inventoryMenu") {
                     combatSession.SingleGameLoop(3, endingIndex);
                 }
+                currentMenu  = "optionMenu";
             }
+
+            revalidate();
         }
     }
 }

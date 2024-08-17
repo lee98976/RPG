@@ -10,9 +10,6 @@ import java.io.IOException;
 import module1.CombatPanel;
 import module1.Panel;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.GridLayout;
 import java.awt.Image;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -34,7 +31,7 @@ public class Screen extends JFrame implements ActionListener{
         setTitle("RPG");
         setVisible(true);
         // getContentPane().setBackground(bgColor);
-        setLayout(null);
+        setLayout(new GridBagLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
