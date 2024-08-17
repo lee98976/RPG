@@ -11,7 +11,6 @@ public class CombatSession {
 
     Player player1;
     PokePal currentPlayer;
-    int playerChoice;
 
     Player aiPlayer;
     PokePal currentEnemy;
@@ -20,7 +19,6 @@ public class CombatSession {
         this.player1 = player1;
         this.aiPlayer = aiPlayer;
 
-        playerChoice = -1;
         combatPanel = new CombatPanel(this);
         rand = new Random();
 
@@ -28,7 +26,6 @@ public class CombatSession {
         
         // Select pokemon
         SelectActivePokemon(0);
-        System.out.println(aiPlayer.pokePals.get(0).palName);
         currentEnemy = aiPlayer.pokePals.get(0);
 
         // Setup UI
@@ -37,7 +34,7 @@ public class CombatSession {
 
     public void betterSleep(int millis) {
         try {
-            Thread.sleep(500);
+            Thread.sleep(millis);
         } catch(InterruptedException e) {
             System.out.println(e);
         }
@@ -47,10 +44,10 @@ public class CombatSession {
 
         combatPanel.isActive = false;
         // Your turn: 
-        turn(player1, false, choice);
-        betterSleep(3000);
-        // Enemy turn
-        turn(aiPlayer, true, 0);
+        turn(player1, false, choice, choice2);
+        betterSleep(300);
+        // Enemy turn:
+        turn(aiPlayer, true, 0, 0);
 
         combatPanel.isActive = true;
 
@@ -76,7 +73,10 @@ public class CombatSession {
         else if (itemName == "Full Heal Potion") {currentPlayer.healPal(currentPlayer.maxHp);}
     }
 
-    public void turn(Player player, boolean isAI, int choice) {
+    public void turn(Player player, boolean isAI, int choice, int choice2) {
+        // Choice 2 is an extra parameter when you attack as you have to
+        // choose an attack to use
+
         String playerName = player.name;
         PokePal pokePal;
         if (isAI) {pokePal = currentEnemy; }
@@ -84,27 +84,16 @@ public class CombatSession {
         String pokePalName = pokePal.palName;
 
         if (isAI) { choice = rand.nextInt(1, 4); }
-        else {
-            choice = playerChoice;
-        }
 
-        if (choice == 1){ //TODO make attack work
+        if (choice == 1){ // TODO make attack work
             System.out.println(pokePalName + " attacked!"); 
         } else if (choice == 2) {
             System.out.println(playerName + " is switching pokemon...");
         } else if (choice == 3) {
             if (player.inventory.size() != 0) {
-                String itemText = "Type the corresponding number for the item: ";
-                int index = 1;
-                for (String item : player.inventory) {
-                    itemText += item + " - " + index + ", ";
-                    index += 1;
-                }
-                itemText = itemText.substring(0, player.inventory.size()-2);
-                itemText += ".";
-                System.out.println(itemText);
+                
 
-                if (isAI) { choice = rand.nextInt(0, player.inventory.size() - 1); }
+                if (isAI) { choice2 = rand.nextInt(0, player.inventory.size() - 1); }
                 // else { choice = }
 
                 // TODO
@@ -117,7 +106,6 @@ public class CombatSession {
             System.out.println(playerName + " ran away!"); 
         }
 
-        playerChoice = -1;
         betterSleep(300);
         System.out.println("Turn over.");
     }

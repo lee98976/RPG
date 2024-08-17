@@ -8,8 +8,6 @@ public abstract class Ability {
     public float critChance;
     public String element;
     public String name;
-    
-    
 
     // protected StatusEffect effect;
     // protected int statusAccuracy;
@@ -22,5 +20,4 @@ public abstract class Ability {
 
     public void doAction(PokePal user, PokePal[] targets) {
     }
-
 }

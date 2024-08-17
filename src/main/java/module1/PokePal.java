@@ -14,7 +14,6 @@ public class PokePal {
     public int defense;
     public int speed;
     public int maxHp;
-    public int currentHp;
 
     //Individual Values
     public int healthIV;
@@ -31,9 +30,11 @@ public class PokePal {
     public ArrayList<Ability> abilityList;
     public Random rand;
 
-    public PokePal(String palName, int level, int health, int attack, int defense, int speed, int hInc, int aInc, int dInc, int sInc, int maxHp) {
+    public PokePal(String palName, int level, int health, int attack, int defense, int speed, int hInc, int aInc, int dInc, int sInc) {
         rand = new Random();
         this.palName = palName;
+
+        this.abilityList = new ArrayList<Ability>();
 
         this.healthIV = rand.nextInt(1, 32);
         this.attackIV = rand.nextInt(1, 32);
@@ -41,13 +42,13 @@ public class PokePal {
         this.speedIV = rand.nextInt(1, 32);
 
         this.level = level;
-        
+        this.exp = 0;
         this.health = health + healthIV;
+        this.maxHp = this.health;
         this.attack = attack + attackIV;
         this.defense = defense + defenseIV;
         this.speed = speed + speedIV;
-        this.maxHp = maxHp;
-
+        
         this.healthInc = hInc;
         this.attackInc = aInc;
         this.defenseInc = dInc;
