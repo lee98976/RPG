@@ -17,10 +17,14 @@ import javax.swing.JPanel;
 import module1.Abilities.Ability;
 
 public class CombatPanel extends JPanel implements ActionListener{
+    // CombatSession is the owner of CombatPanel
     CombatSession combatSession;
+
+    // UI Options
     boolean isActive = true;
     String currentMenu = "optionMenu";
 
+    // UI
     Color bgColor = new Color(10, 150, 10);
     Image bgImg;
 
@@ -34,6 +38,7 @@ public class CombatPanel extends JPanel implements ActionListener{
         optionMenu();
     }
 
+    // Menus
     public void optionMenu() {
         removeAll();
 
@@ -55,8 +60,6 @@ public class CombatPanel extends JPanel implements ActionListener{
             add(createButton(1, 1, 1, 1, new JButton(ability.name + " " + index)));
             index += 1;
         }
-
-        currentMenu = "attackMenu";
         // repaint();
     }
 
@@ -71,8 +74,6 @@ public class CombatPanel extends JPanel implements ActionListener{
             add(createButton(1, 1, 1, 1, new JButton(pokemon.palName + " " + index)));
             index += 1;
         }
-
-        currentMenu = "pokemonMenu";
     }
 
     public void inventoryMenu() {
@@ -85,11 +86,9 @@ public class CombatPanel extends JPanel implements ActionListener{
             add(createButton(1, 1, 1, 1, new JButton(item + " " + index)));
             index += 1;
         }
-
-        currentMenu = "inventoryMenu";
     }
 
-
+    // Utility
     public JButton createButton(int xPos, int yPos, int width, int height, JButton button1) {
         button1.setBounds(xPos, yPos, width, height);
         button1.addActionListener(this);
@@ -97,6 +96,7 @@ public class CombatPanel extends JPanel implements ActionListener{
         return button1;
     }
     
+    // Acts on button presses
     @Override                                                                                                                                          
     public void actionPerformed(ActionEvent e){
         if (isActive) {
@@ -132,6 +132,7 @@ public class CombatPanel extends JPanel implements ActionListener{
                 currentMenu  = "optionMenu";
             }
 
+            // Revalidate refreshes the panel
             revalidate();
         }
     }

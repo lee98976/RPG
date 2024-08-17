@@ -32,8 +32,8 @@ public class CombatSession {
 
         // Initialize UI
         combatPanel = new CombatPanel(this);
-        playerHealthBar = new HealthBar(300, 700);
-        enemyHealthBar = new HealthBar(1200, 500);
+        playerHealthBar = new HealthBar(300, 700, 200, 100);
+        enemyHealthBar = new HealthBar(1200, 500, 200, 100);
         updateHealthBar(playerHealthBar, currentPlayer);
         updateHealthBar(enemyHealthBar, currentEnemy);
         screen.add(combatPanel); 

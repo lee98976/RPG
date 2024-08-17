@@ -30,12 +30,8 @@ public class Main {
                     screen.battleScene(player, enemy, "GrassBattlefield");
 
                 } catch (InterruptedException e) {
+                    System.out.println(e);
                 }
-                // DialogueText label = new DialogueText(text.getDialogue("intro.txt"));
-                // label.setHorizontalTextPosition(JLabel.CENTER);
-                // label.setHorizontalAlignment(JLabel.CENTER);
-                // label.setFont();
-                // label.fancyText("sdifhsdbionerwiofruebioqetu
             }
         });
     }

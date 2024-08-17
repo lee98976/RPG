@@ -13,8 +13,6 @@ public class Player {
     private PerkTree perkTree;
     private int trainerLevel;
 
-    // private DialogueHandler text = new DialogueHandler();
-
     // Load data
 
     // public Player(PerkTree perkTree) {
@@ -28,7 +26,5 @@ public class Player {
         inventory = new ArrayList<String>();
         perkTree = new PerkTree(new Perk(0, "Health Boost", true));
         trainerLevel = 1;
-
-        // text.dialogue("intro.txt");
     }
 }

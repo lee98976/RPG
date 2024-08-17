@@ -76,8 +76,6 @@ public class PokePal {
 
     public boolean hurtPal(int amount){
         health -= amount;
-        // System.out.println("maxHP" + maxHp);
-        // System.out.println("health" + health);
         if (health < 0) {return true;}
         else {return false;}
     }
