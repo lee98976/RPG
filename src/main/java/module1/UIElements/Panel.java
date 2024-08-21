@@ -1,4 +1,4 @@
-package module1;
+package module1.UIElements;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -10,6 +10,7 @@ public class Panel extends JPanel{
     private Image image;
 
     public Panel(Image image) {
+        setLayout(null);
         this.image = image;
     }
 

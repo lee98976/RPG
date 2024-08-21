@@ -7,12 +7,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import module1.CombatPanel;
-import module1.Panel;
+
+import module1.Scenes.CombatPanel;
+import module1.UIElements.Panel;
 
 import java.awt.Image;
-import javax.swing.JButton;
-import javax.swing.JPanel;
 
 public class Screen extends JFrame implements ActionListener{
     //References://
@@ -29,10 +28,16 @@ public class Screen extends JFrame implements ActionListener{
     public Screen() throws InterruptedException {
         setSize(width, height);
         setTitle("RPG");
+        setResizable(false);
         setVisible(true);
-        // getContentPane().setBackground(bgColor);
-        setLayout(new GridBagLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public void betterAdd(Component component, int x, int y, int width, int height){
+        component.setBounds(x, y, width, height);
+        component.repaint();
+        component.revalidate();
+        add(component);
     }
     
     public void battleScene(Player player1, Player aiPlayer, String battlefieldName) throws InterruptedException {

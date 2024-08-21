@@ -1,4 +1,4 @@
-package module1;
+package module1.Scenes;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -14,6 +14,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import module1.CombatSession;
+import module1.PokePal;
 import module1.Abilities.Ability;
 
 public class CombatPanel extends JPanel implements ActionListener{
@@ -21,7 +23,7 @@ public class CombatPanel extends JPanel implements ActionListener{
     CombatSession combatSession;
 
     // UI Options
-    boolean isActive = true;
+    public boolean isActive = true;
     String currentMenu = "optionMenu";
 
     // UI
@@ -33,7 +35,7 @@ public class CombatPanel extends JPanel implements ActionListener{
 
         revalidate();
         setBackground(bgColor);
-        setBounds(1050, 575, 500, 250);
+        setLayout(null);
 
         optionMenu();
     }
@@ -118,6 +120,7 @@ public class CombatPanel extends JPanel implements ActionListener{
                 else if (text == "Run Away"){ 
                     combatSession.SingleGameLoop(4, -1);
                 }
+                revalidate();
             }
             else {
                 int endingIndex = Integer.parseInt(text.substring(text.length() - 1, text.length()));

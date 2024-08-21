@@ -1,22 +1,25 @@
 package module1;
+import java.awt.GridBagConstraints;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
 import module1.Abilities.Ability;
+import module1.Scenes.CombatPanel;
+import module1.UIElements.HealthBar;
 
 public class CombatSession {
-    Random rand;
-    CombatPanel combatPanel;
-    Screen screen;
+    public Random rand;
+    public CombatPanel combatPanel;
+    public Screen screen;
 
-    Player player1;
-    PokePal currentPlayer;
-    HealthBar playerHealthBar;
+    public Player player1;
+    public PokePal currentPlayer;
+    public HealthBar playerHealthBar;
 
-    Player aiPlayer;
-    PokePal currentEnemy;
-    HealthBar enemyHealthBar;
+    public Player aiPlayer;
+    public PokePal currentEnemy;
+    public HealthBar enemyHealthBar;
 
     public CombatSession(Player player1, Player aiPlayer, Screen screen) {
         this.player1 = player1;
@@ -32,13 +35,13 @@ public class CombatSession {
 
         // Initialize UI
         combatPanel = new CombatPanel(this);
-        playerHealthBar = new HealthBar(300, 700, 200, 100);
-        enemyHealthBar = new HealthBar(1200, 500, 200, 100);
+        playerHealthBar = new HealthBar(280, 300, 400, 50);
+        enemyHealthBar = new HealthBar(850, 100, 400, 50);
         updateHealthBar(playerHealthBar, currentPlayer);
         updateHealthBar(enemyHealthBar, currentEnemy);
-        screen.add(combatPanel); 
-        // screen.add(playerHealthBar);
-        screen.add(enemyHealthBar);  
+        screen.betterAdd(combatPanel, 1050, 575, 500, 250); 
+        screen.add(playerHealthBar);
+        screen.add(enemyHealthBar);
     }
 
     public void updateHealthBar(HealthBar healthBar, PokePal pokemon) {
@@ -111,7 +114,7 @@ public class CombatSession {
             System.out.println("abilitysize: " + currentEnemy.abilityList.size());
             if (isAI) { choice2 = rand.nextInt(0, currentEnemy.abilityList.size()); }
             System.out.println(pokePalName + " attacked!"); 
-            System.out.println(choice2);
+            // System.out.println(choice2);
             attack(pokePal.abilityList.get(choice2), pokePal, enemyPokePal);
         } else if (choice == 2) {
             if (isAI) { choice2 = rand.nextInt(0, aiPlayer.pokePals.size()); }
@@ -142,6 +145,13 @@ public class CombatSession {
 
         // System.out.println("damage" + damage);
         boolean isDead = opponent.hurtPal(damage);
+
+        // System.out.println(currentEnemy.health);
+        
+        // System.out.println(currentEnemy.maxHp);
+
+        playerHealthBar.updateHealthBar(Math.clamp((float) currentPlayer.health / (float) currentPlayer.maxHp, 0, 1));
+        enemyHealthBar.updateHealthBar(Math.clamp((float) currentEnemy.health / (float) currentEnemy.maxHp, 0, 1));
 
         if (isDead) {
             // TODO
