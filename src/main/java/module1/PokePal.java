@@ -36,10 +36,10 @@ public class PokePal {
 
         this.abilityList = new ArrayList<Ability>();
 
-        this.healthIV = rand.nextInt(1, 8);
-        this.attackIV = rand.nextInt(1, 8);
-        this.defenseIV = rand.nextInt(1, 8);
-        this.speedIV = rand.nextInt(1, 8);
+        this.healthIV = rand.nextInt(1, 4);
+        this.attackIV = rand.nextInt(1, 4);
+        this.defenseIV = rand.nextInt(1, 4);
+        this.speedIV = rand.nextInt(1, 4);
 
         this.level = level;
         this.exp = 0;

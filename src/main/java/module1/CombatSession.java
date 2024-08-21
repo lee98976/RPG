@@ -108,10 +108,22 @@ public class CombatSession {
 
         String pokePalName = pokePal.palName;
 
-        if (isAI) { choice = rand.nextInt(1, 4); }
+        if (isAI) { 
+            int[] weightedBounds = {0, 10, 12, 16, 16};
+            choice = rand.nextInt(weightedBounds[weightedBounds.length - 1]);
+            for (int i = 1; i < 5; i++) {
+                // System.out.println(choice + " ugh " + weightedBounds);
+                if (choice >= weightedBounds[i-1] && choice < weightedBounds[i]){
+                    choice = i;
+                    break;
+                }
+            }
+            System.out.println("enemy choice" + choice);
+        } else {
+            System.out.println("playerchoice " + choice);
+        }
 
         if (choice == 1){
-            System.out.println("abilitysize: " + currentEnemy.abilityList.size());
             if (isAI) { choice2 = rand.nextInt(0, currentEnemy.abilityList.size()); }
             System.out.println(pokePalName + " attacked!"); 
             // System.out.println(choice2);

@@ -21,16 +21,10 @@ public class Main {
                     //TODO Design actual pokepals
 
                     Player player = new Player("Ash");
-                    PokePal pikachu = new PokePal("Pikachu", 1, 100, 3, 2, 0, 1, 1, 1, 1);
-                    pikachu.abilityList.add(new AttackAbility(0, 50, 2, "Electric", "Thunderbolt"));
-                    player.pokePals.add(pikachu);
-
+                    player.addPresetPal("Pikachu");
                     Player enemy = new Player("Team Rocket");
-                    PokePal ghastly = new PokePal("Ghastly", 1, 50, 5, 3, 0, 1, 1, 1, 1);
-                    ghastly.abilityList.add(new AttackAbility(0, 50, 1.5f, "Fart", "Smoke Screen"));
-                    enemy.pokePals.add(ghastly);
+                    enemy.addPresetPal("Ghastly");
                     
-
 
                     screen.battleScene(player, enemy, "GrassBattlefield"); 
                 } catch (InterruptedException e) {
