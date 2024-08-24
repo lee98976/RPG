@@ -1,8 +1,13 @@
 package module1;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.text.DefaultCaret;
 
 import module1.Abilities.Ability;
 import module1.Scenes.CombatPanel;
@@ -12,6 +17,7 @@ public class CombatSession {
     public Random rand;
     public CombatPanel combatPanel;
     public Screen screen;
+    public JTextArea battleLog;
 
     public Player player1;
     public PokePal currentPlayer;
@@ -37,9 +43,17 @@ public class CombatSession {
         combatPanel = new CombatPanel(this);
         playerHealthBar = new HealthBar(280, 300, 400, 50);
         enemyHealthBar = new HealthBar(850, 100, 400, 50);
+        battleLog = new JTextArea();
+        battleLog.setEditable(false);
+        battleLog.setFont(new Font("Georgia", Font.BOLD, 24));
+        battleLog.getCaret().setDot( Integer.MAX_VALUE );
+        JScrollPane scrollPanel = new JScrollPane(battleLog);
+
+
         updateHealthBar(playerHealthBar, currentPlayer);
         updateHealthBar(enemyHealthBar, currentEnemy);
         screen.betterAdd(combatPanel, 1050, 575, 500, 250); 
+        screen.betterAdd(scrollPanel, 50, 575, 950, 250);
         screen.add(playerHealthBar);
         screen.add(enemyHealthBar);
     }
@@ -48,20 +62,19 @@ public class CombatSession {
         healthBar.updateHealthBar(pokemon.health / pokemon.maxHp);
     }
 
-    public void betterSleep(int millis) {
-        try {
-            Thread.sleep(millis);
-        } catch(InterruptedException e) {
-            System.out.println(e);
-        }
-    }
+    // public void betterSleep(int millis) {
+    //     try {
+    //         Thread.sleep(millis);
+    //     } catch(InterruptedException e) {
+    //         System.out.println(e);
+    //     }
+    // }
 
     public void SingleGameLoop(int choice, int choice2) {
 
         combatPanel.isActive = false;
         // Your turn: 
         turn(player1, false, choice, choice2);
-        betterSleep(300);
         // Enemy turn:
         turn(aiPlayer, true, 0, 0);
 
@@ -77,7 +90,7 @@ public class CombatSession {
         if (selectedPokemon.health >= 0) {
             currentPlayer = selectedPokemon;
         } else {
-            System.out.println(selectedPokemon.palName + ", pokepal number " + Integer.toString(index + 1) + ",  has already fainted!");
+            updateBattleLog(selectedPokemon.palName + ", pokepal number " + Integer.toString(index + 1) + ",  has already fainted!");
             SelectActivePokemon(index + 1);
         }
     }
@@ -87,6 +100,10 @@ public class CombatSession {
         if (itemName == "Potion") {currentPlayer.healPal(10);}
         else if (itemName == "Super Potion") {currentPlayer.healPal(20);}
         else if (itemName == "Full Heal Potion") {currentPlayer.healPal(currentPlayer.maxHp);}
+    }
+
+    public void updateBattleLog(String string) {
+        battleLog.setText(battleLog.getText() + "\n" + string);
     }
 
     public void turn(Player player, boolean isAI, int choice, int choice2) {
@@ -112,38 +129,34 @@ public class CombatSession {
             int[] weightedBounds = {0, 10, 12, 16, 16};
             choice = rand.nextInt(weightedBounds[weightedBounds.length - 1]);
             for (int i = 1; i < 5; i++) {
-                // System.out.println(choice + " ugh " + weightedBounds);
                 if (choice >= weightedBounds[i-1] && choice < weightedBounds[i]){
                     choice = i;
                     break;
                 }
             }
-            System.out.println("enemy choice" + choice);
-        } else {
-            System.out.println("playerchoice " + choice);
         }
 
         if (choice == 1){
             if (isAI) { choice2 = rand.nextInt(0, currentEnemy.abilityList.size()); }
-            System.out.println(pokePalName + " attacked!"); 
-            // System.out.println(choice2);
+            updateBattleLog(pokePalName + " attacked!"); 
+            // updateBattleLog(choice2);
             attack(pokePal.abilityList.get(choice2), pokePal, enemyPokePal);
         } else if (choice == 2) {
             if (isAI) { choice2 = rand.nextInt(0, aiPlayer.pokePals.size()); }
-            System.out.println(playerName + " is switching pokemon...");
+            updateBattleLog(playerName + " is switching pokemon...");
             SelectActivePokemon(choice2);
         } else if (choice == 3) {
             if (player.inventory.size() != 0) {
                 if (isAI) { choice2 = rand.nextInt(0, player.inventory.size()); }
             } else {
-                System.out.println(playerName + " scoured his bag but could find nothing!");
+                updateBattleLog(playerName + " scoured his bag but could find nothing!");
             }
         } else if (choice == 4) {
-            System.out.println(playerName + " ran away!"); 
+            updateBattleLog(playerName + " ran away!"); 
         }
 
-        betterSleep(300);
-        System.out.println("Turn over.");
+        // betterSleep(300);
+        updateBattleLog("Turn over.");
     }
 
     // Create function for pokemon stats, function has access to important attributes (Damage, health, etc)

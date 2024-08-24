@@ -12,25 +12,32 @@ import java.io.File;
 import java.io.IOException;
 
 public class Main {
+    
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
                 try {
                     Screen screen = new Screen();
-                    //TODO Design actual pokepals
 
-                    Player player = new Player("Ash");
-                    player.addPresetPal("Pikachu");
-                    Player enemy = new Player("Team Rocket");
-                    enemy.addPresetPal("Ghastly");
+                    // Games sequence is run to advance the game scene
+                    screen.gameScenesSequence();
+
+                    // screen.dialogueScene("Beginning");
+
+                    // Player player = new Player("Ash");
+                    // player.addPresetPal("Pikachu");
+                    // Player enemy = new Player("Team Rocket");
+                    // enemy.addPresetPal("Ghastly");
                     
+                    // screen.battleScene(player, enemy, "GrassBattlefield"); 
 
-                    screen.battleScene(player, enemy, "GrassBattlefield"); 
-                } catch (InterruptedException e) {
+                    
+                } catch (Exception e) {
                     System.out.println(e);
                 }
             }
         });
     }
+ 
 }

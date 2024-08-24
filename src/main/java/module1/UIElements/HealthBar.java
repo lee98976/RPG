@@ -56,13 +56,12 @@ public class HealthBar extends JPanel {
     public void recentDamageAnim() {
         frames += 1;
         // 81 to 160 inclusive
-        if (frames > 80 && frames <= 160) {
-            float currentDuration = (float) (frames - 80f) / 80f;
+        if (frames > 160 && frames <= 240) {
+            float currentDuration = (float) (frames - 160f) / 80f;
             // System.out.println(recentDamagePart.getWidth());
-            System.out.println(currentDuration);
             recentDamagePart.setSize((int) (healthPart.getWidth() + moveDistance * ((1-currentDuration) * (1-currentDuration))), healthPart.getHeight());
             revalidate();
-        } else if (frames > 160) {
+        } else if (frames > 240) {
             animTimer.stop();
         }
     }

@@ -1,38 +1,46 @@
 package module1;
 import javax.swing.*;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.ArrayList;
 
 public class DialogueText extends JLabel{
-    List<String> dialogue;
-    JFrame frame;
+    String line = "";
+    int currentCharIndex = 0;
+    Timer animTimer = new Timer(0, null);
 
-    public DialogueText(List<String> dialogue, Font font){
-        this.dialogue = dialogue;
+    public DialogueText(){
+        setFont(new Font("Georgia", Font.PLAIN, 24));
+        setText("");
     }
 
-    public void fancyText(String text, JFrame frame) throws InterruptedException{
-        String line = "";
-        frame.add(this);      
-        for(char c : text.toCharArray()){
-            line += c;
-            System.out.println(line);
-            setText(line);
-            Thread.sleep(50);
-        }
+    public void updateText(String text, JFrame frame){
+        line += text.toCharArray()[currentCharIndex];
+        currentCharIndex += 1;
+        setText(line);
 
-        Thread.sleep(1000);
-
-        frame.remove(this);
-        frame.revalidate();
         frame.repaint();
-    }
+        frame.revalidate();
 
-    public void dialogue(String name, JFrame frame) throws InterruptedException{ //Testing
-        for(String text : dialogue){
-            //fancyText(text);
-            Thread.sleep(1000);
+        if (currentCharIndex >= text.toCharArray().length) {
+            animTimer.stop();
         }
     }
+
+    public void fancyText(String text, JFrame frame) {
+        animTimer.stop();
+
+        line = "";
+        currentCharIndex = 0;
+
+        animTimer = new Timer(30, new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                updateText(text, frame);
+            }
+        });
+        
+        animTimer.start();
+    } 
 }
